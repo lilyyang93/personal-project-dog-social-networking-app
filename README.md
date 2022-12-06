@@ -23,4 +23,4 @@ Moved to a new city and need to make new friends? Meet other people in your area
 ## (Tentative) Third party APIs: 
 * Google photos API https://developers.google.com/photos (to upload photos of your dog) 
 * The noun project https://thenounproject.com/ (for profile icons)
-* The bored API https://www.boredapi.com/ (show option to generate random activity if no friends available) 
+* The bored API https://www.boredapi.com/ (show option to generate random activity if no friends available) ?? or The Dog API https://thedogapi.com/ (display random photo of a dog if no friends available) 
