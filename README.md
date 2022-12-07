@@ -63,3 +63,6 @@ Moved to a new city and need to make new friends? Meet other people in your area
 * Google photos API https://developers.google.com/photos (to upload photos of your dog) 
 * The noun project https://thenounproject.com/ (for profile icons) ?
 * The Dog API https://thedogapi.com/ (display random photo of a dog if no friends available) 
+
+## Goals for next time:
+* Location feature - have a populated list of cities people can choose from, or use zipcode that allows for certain radius
