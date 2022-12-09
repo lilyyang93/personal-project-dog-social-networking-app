@@ -10,7 +10,7 @@ class AppUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f"user: {self.email}"
+        return f"user: {self.username}"
 
 # class HumanProfile(models.Model):
 #     user_id = models.OneToOneField(AppUser, on_delete=models.CASCADE)
