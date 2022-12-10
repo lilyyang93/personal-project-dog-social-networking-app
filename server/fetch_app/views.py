@@ -17,7 +17,7 @@ def signup(request):
         email = request.data['email']
         password = request.data['password']
         birthdate = request.data['birthdate']
-        first_name = request.data['first_name']
+        first_name = request.data['first_name'] 
         last_name = request.data['last_name']
 
         new_user = AppUser.objects.create(
