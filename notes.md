@@ -2,13 +2,15 @@ TO-DO LIST
 
 x create basic fullstack starter app 
 x database schema design (relationships)
-- model fields, constraints, validators
-- model tests 
+x model fields, constraints, validators
+x model tests 
+x django authentication 
+- django login/logout (and redirect after successful login/logout)
 - brainstorm app pages 
 - brainstorm pages layout/blueprint 
 - brainstorm app components
 - create seed data 
-- craete views 
+- create views 
 - test calls to 3rd party APIs 
 - routing 
 - design 
@@ -16,6 +18,7 @@ x database schema design (relationships)
 
 - make sure requirements.txt file is up to date 
 - make sure no secret keys are included before pushing to github 
+- make sure code is clean
 
 stretch:
 - deployment 
