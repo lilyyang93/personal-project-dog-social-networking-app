@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 export default function LogInPage() {
     function getCookie(name) {
@@ -46,13 +45,13 @@ export default function LogInPage() {
 
     return (
         <div className="LogInPage">
-        <h1>Welcome to Fetch!</h1>
-        <h3>Please log in</h3>
+        <h1>Welcome to Fetch!</h1><br/><br/>
+        <h5>Please log in</h5><br/>
         <form onSubmit={authenticateUser}>
             <label for="LogInEmail">email: </label><input id="LogInEmail" type="text" /><br/><br/>
             <label for="LogInPassword">password: </label><input id="LogInPassword" type="password" /><br/><br/>
             <input type="submit"></input>
-        </form>
+        </form><br/>
         <p>Don't have an account?</p> <Link to="/signup">Sign Up!</Link>
         </div>
     )
