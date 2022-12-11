@@ -4,11 +4,27 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view 
 from .models import AppUser
 
-
+@api_view(["GET", "POST"])
 def index(request):
-    print('at the index')
-    homepage = open('static/index.html').read()
-    return HttpResponse(homepage)
+    if request.method == "GET":
+        homepage = open('static/index.html').read()
+        return HttpResponse(homepage)
+    elif request.method == "POST":
+        email = request.data['email']
+        password = request.data['password']
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_active:
+                try: 
+                    login(request, user)
+                    return JsonResponse({'success':True})
+                except Exception as e:
+                    return JsonResponse({'success': False, 'reason':'login failed'})
+            else:
+                return JsonResponse({'success': False, 'reason': 'account disabled'})
+        else:
+            return JsonResponse({'success': False, 'reason': 'account does not exist'})
+    return JsonResponse({'success':True})
 
 @api_view(["POST"])
 def signup(request):
@@ -32,30 +48,12 @@ def signup(request):
         new_user.save()
     return JsonResponse({"success":True})
 
-@api_view(["GET", "POST"])
-def login_user(request):
-    if request.method == "POST":
-        email = request.data['email']
-        password = request.data['password']
-        user = authenticate(username=email, password=password)
-        if user is not None:
-            if user.is_active:
-                try: 
-                    login(request, user)
-                    return JsonResponse({'success':True})
-                except Exception as e:
-                    return JsonResponse({'success': False, 'reason':'login failed'})
-            else:
-                return JsonResponse({'success': False, 'reason': 'account disabled'})
-        else:
-            return JsonResponse({'success': False, 'reason': 'account does not exist'})
-    return JsonResponse({'success':True})
-
 @api_view
 def logout_user(request):
     pass
 
-@api_view 
+@api_view(["GET"])
 @login_required
 def homepage(request):
-    print(request.user.email)
+    if request.method == 'GET':
+        print(request.user.email)
