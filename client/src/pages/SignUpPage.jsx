@@ -16,8 +16,9 @@ export default function SignUpPage() {
         }
         return cookieValue;
     }
-      const csrftoken = getCookie('csrftoken');
-      axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+    const csrftoken = getCookie('csrftoken');
+    axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+    
     async function createUser(event) {
         event.preventDefault()
         let username = document.getElementById('SignUpUsername').value
