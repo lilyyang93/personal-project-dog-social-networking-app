@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export default function LogInPage() {
     function getCookie(name) {
@@ -16,31 +19,41 @@ export default function LogInPage() {
         }
         return cookieValue;
     }
-      const csrftoken = getCookie('csrftoken');
-      axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+    const csrftoken = getCookie('csrftoken');
+    axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+    
+    const [loggedIn, setLoggedIn] = useState(false)
 
     async function authenticateUser(event) {
         event.preventDefault()
         let email = document.getElementById('LogInEmail').value
         let password = document.getElementById('LogInPassword').value
         
-        let response = await axios.post("login", {
+        let response = await axios.post("", {
             'email': email,
             'password': password,
         })
         console.log(response.data)
         if (response.data.success) {
-            console.log('user successfully authenticated')
+            console.log('user successfully logged in')
+            setLoggedIn(true)
         }
     }
+
+    if (loggedIn) {
+        return <Navigate to="homepage"/>
+    }
+
     return (
         <div className="LogInPage">
+        <h1>Welcome to Fetch!</h1>
         <h3>Please log in</h3>
         <form onSubmit={authenticateUser}>
             <label for="LogInEmail">email: </label><input id="LogInEmail" type="text" /><br/><br/>
             <label for="LogInPassword">password: </label><input id="LogInPassword" type="password" /><br/><br/>
             <input type="submit"></input>
         </form>
+        <p>Don't have an account?</p> <Link to="/signup">Sign Up!</Link>
         </div>
     )
 }
