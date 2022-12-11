@@ -48,9 +48,10 @@ def signup(request):
         new_user.save()
     return JsonResponse({"success":True})
 
-@api_view
+@api_view(["POST"])
 def logout_user(request):
-    pass
+    logout(request)
+    return JsonResponse({"success":True})
 
 @api_view(["GET"])
 @login_required
