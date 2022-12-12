@@ -40,7 +40,7 @@ export default function LogInPage() {
     }
 
     if (loggedIn) {
-        return <Navigate to="homepage"/>
+        return <Navigate to="/homepage"/>
     }
 
     return (
