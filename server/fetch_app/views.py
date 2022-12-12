@@ -57,4 +57,4 @@ def logout_user(request):
 @login_required
 def homepage(request):
     if request.method == 'GET':
-        print(request.user.email)
+        print(request.data.email)
