@@ -32,9 +32,7 @@ export default function LogInPage() {
             'email': email,
             'password': password,
         })
-        console.log(response.data)
         if (response.data.success) {
-            console.log('user successfully logged in')
             setLoggedIn(true)
         }
     }
