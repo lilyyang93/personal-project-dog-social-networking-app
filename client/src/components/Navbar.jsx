@@ -2,13 +2,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
 
     const [userLoggedIn, setUserLoggedIn] = useState(true)
-    console.log(userLoggedIn)
-
     const navigate = useNavigate()
 
     async function logoutUser() {
@@ -21,7 +19,6 @@ export default function NavBar() {
 
     useEffect(()=> {
         if (!userLoggedIn) {
-            console.log('trying to navigate')
             navigate("/")
         }
     },[userLoggedIn])
