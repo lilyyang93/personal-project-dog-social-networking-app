@@ -12,7 +12,7 @@ export default function HomePage() {
 
     async function getUserPage() {
         let response = await axios.get("homepage")
-        setMyUser(response.data.user)
+        setMyUser(response.data.firstname)
     }   
 
     return (

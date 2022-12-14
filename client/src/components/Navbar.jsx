@@ -28,8 +28,7 @@ export default function NavBar() {
     <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="#home">Fetch</Navbar.Brand>
         <Nav className="me-auto">
-        <Nav.Link href="">Home</Nav.Link>
-        <Nav.Link href="#features">Features</Nav.Link>
+        <Nav.Link href="/homepage">Home</Nav.Link>
         <Nav.Link onClick={logoutUser}>Log Out</Nav.Link>
         </Nav>
     </Navbar>
