@@ -57,4 +57,6 @@ def logout_user(request):
 @login_required
 def homepage(request):
     if request.method == 'GET':
-        print(request.data.email)
+        my_user = request.user.username
+        logged_in_user = AppUser.objects.get(username=my_user)
+        return JsonResponse({'user':logged_in_user.first_name})
