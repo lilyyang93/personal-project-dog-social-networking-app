@@ -7,34 +7,34 @@ from .models import AppUser
 @api_view(["GET", "POST"])
 def index(request):
     if request.method == "GET":
-        homepage = open('static/index.html').read()
+        homepage = open("static/index.html").read()
         return HttpResponse(homepage)
     elif request.method == "POST":
-        email = request.data['email']
-        password = request.data['password']
+        email = request.data["email"]
+        password = request.data["password"]
         user = authenticate(username=email, password=password)
         if user is not None:
             if user.is_active:
                 try: 
                     login(request, user)
-                    return JsonResponse({'success':True})
+                    return JsonResponse({"success":True})
                 except Exception as e:
-                    return JsonResponse({'success': False, 'reason':'login failed'})
+                    return JsonResponse({"success": False, "reason":"login failed"})
             else:
-                return JsonResponse({'success': False, 'reason': 'account disabled'})
+                return JsonResponse({"success": False, "reason": "account disabled"})
         else:
-            return JsonResponse({'success': False, 'reason': 'account does not exist'})
-    return JsonResponse({'success':True})
+            return JsonResponse({"success": False, "reason": "account does not exist"})
+    return JsonResponse({"success":True})
 
 @api_view(["POST"])
 def signup(request):
     if request.method == "POST":
-        username = request.data['username']
-        email = request.data['email']
-        password = request.data['password']
-        birthdate = request.data['birthdate']
-        first_name = request.data['first_name'] 
-        last_name = request.data['last_name']
+        username = request.data["username"]
+        email = request.data["email"]
+        password = request.data["password"]
+        birthdate = request.data["birthdate"]
+        first_name = request.data["first_name"] 
+        last_name = request.data["last_name"]
 
         new_user = AppUser.objects.create(
             username=username, 
@@ -56,7 +56,10 @@ def logout_user(request):
 @api_view(["GET"])
 @login_required
 def homepage(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         my_user = request.user.username
         logged_in_user = AppUser.objects.get(username=my_user)
-        return JsonResponse({'user':logged_in_user.first_name})
+        return JsonResponse({
+            "firstname":logged_in_user.first_name,
+            "email": logged_in_user.username,
+        })
