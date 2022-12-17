@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function SignUpPage() {
     function getCookie(name) {
@@ -18,6 +20,8 @@ export default function SignUpPage() {
     }
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+
+    const [newUser, setNewUser] = useState(false)
     
     async function createUser(event) {
         event.preventDefault()
@@ -27,6 +31,7 @@ export default function SignUpPage() {
         let birthdate = document.getElementById('SignUpBirthdate').value
         let first_name = document.getElementById('SignUpFirstname').value
         let last_name = document.getElementById('SignUpLastname').value
+        let city = document.getElementById('SignUpCity').value
         
         let response = await axios.post("signup", {
             'first_name': first_name,
@@ -35,11 +40,18 @@ export default function SignUpPage() {
             'username': username,
             'password': password,
             'birthdate': birthdate,
+            'city': city,
+            'image': "",
         })
         if (response.data.success) {
-            console.log('new user successfully added')
+            setNewUser(true)
         }
     }
+
+    if (newUser) {
+        return <Navigate to="/" />
+    }
+
     return (
         <div className="SignUpPage">
         <h1>Sign up!</h1>
@@ -49,6 +61,7 @@ export default function SignUpPage() {
             <label for="SignUpUsername">email: </label><input id="SignUpUsername" type="text" /><br/><br/>
             <label for="SignUpPassword">password: </label><input id="SignUpPassword" type="password" /><br/><br/>
             <label for="SignUpBirthdate">date of birth: </label><input id="SignUpBirthdate" type="text" placeholder="YYYY-MM-DD" /><br/><br/>
+            <label for="SignUpCity">city: </label><input id="SignUpCity" type="text" /><br/><br/>
             <input type="submit"></input>
         </form>
         </div>
