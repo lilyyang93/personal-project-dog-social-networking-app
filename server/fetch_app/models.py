@@ -5,16 +5,20 @@ from .validators import age_greater_or_equal_to_18
 class AppUser(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     birthdate = models.DateField(max_length=8, validators=[age_greater_or_equal_to_18])
+    city = models.CharField(max_length=255, default="")
+    image = models.CharField(max_length=255, default="")
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
         return f"user: {self.username}"
 
 # class HumanProfile(models.Model):
-#     user_id = models.OneToOneField(AppUser, on_delete=models.CASCADE)
-#     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+#     user = models.OneToOneField(AppUser, on_delete=models.CASCADE)
+#     image = models.ImageField(default="default.jpg")
+#     bio = models.CharField(max_length=255, default="you can write a short bio here!")
+#     city = models.CharField(max_length=255, default="unknown")
 
 #     def __str__(self):
 #         return f"{self.user.username} Profile"
