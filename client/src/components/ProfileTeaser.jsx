@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import {
   MDBCol,
@@ -11,6 +12,9 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function ProfileTeaser(props) {
+
+    const navigate = useNavigate()
+
     return (
         <div className="ProfileTeaser">
             <section style={{ backgroundColor: '#eee' }}>
@@ -28,7 +32,7 @@ export default function ProfileTeaser(props) {
                 <p className="text-muted mb-1">Name: {props.myUser}</p>
                 <p className="text-muted mb-4">City: {props.myCity}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn outline className="ms-1">Edit</MDBBtn>
+                  <MDBBtn outline className="ms-1" onClick={()=>navigate("/editprofile")}>Edit Profile</MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
