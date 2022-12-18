@@ -10,6 +10,7 @@ import os
 import json
 
 load_dotenv()
+auth = OAuth1(os.environ['apikey'], os.environ['secretkey'])
 
 @api_view(["GET", "POST"])
 def index(request):
@@ -52,7 +53,7 @@ def signup(request):
             first_name=first_name, 
             last_name=last_name,
             city=city,
-            image="human",
+            image="user",
         )
         new_user.set_password(password)
         new_user.save()
@@ -67,8 +68,6 @@ def logout_user(request):
 @login_required
 def homepage(request):
     if request.method == "GET":
-        auth = OAuth1(os.environ['apikey'], os.environ['secretkey'])
-
         my_user = request.user.username
         logged_in_user = AppUser.objects.get(username=my_user)
         NP_API_response = client_request.get(f"http://api.thenounproject.com/icon/{logged_in_user.image}", auth=auth)
@@ -81,3 +80,29 @@ def homepage(request):
             "image": logged_in_user.image,
             "image_url": image_url
         })
+
+@api_view(["GET", "PUT"])
+@login_required
+def edit_profile(request):
+    if request.method == "PUT":
+        my_user = request.user.username
+        logged_in_user = AppUser.objects.get(username=my_user)
+        new_value = request.data['new_value']
+        if request.data['attribute'] == 'last_name':
+            logged_in_user.last_name = new_value
+            logged_in_user.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'first_name':
+            logged_in_user.first_name = new_value
+            logged_in_user.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'city':
+            logged_in_user.city = new_value
+            logged_in_user.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'image':
+            logged_in_user.image = new_value
+            logged_in_user.save()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success':False})
+        
