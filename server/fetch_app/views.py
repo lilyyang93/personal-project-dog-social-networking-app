@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view 
 from .models import *
+from .serializers import PetProfileSerializer
 import requests as client_request
 from requests_oauthlib import OAuth1
 from dotenv import load_dotenv
@@ -105,4 +106,29 @@ def edit_profile(request):
             logged_in_user.save()
             return JsonResponse({'success': True})
         return JsonResponse({'success':False})
+
+@api_view(["GET", "POST"])
+def add_pet_profile(request):
+    pass
+    if request.method == "POST":
+        pet_name = request.data["pet_name"]
+        pet_birthdate = request.data["pet_birthdate"]
+        pet_breed = request.data["pet_breed"]
+        pet_gender = request.data["pet_gender"]
+        spayed_neutered = request.data["spayed_neutered"] 
+        pet_personality = request.data["pet_personality"]
+        pet_profile_photo = request.data["pet_profile_photo"]
+
+        new_pet = PetProfile.objects.create(
+            name=pet_name, 
+            birthdate=pet_birthdate, 
+            breed=pet_breed, 
+            gender=pet_gender, 
+            spayed_neutered=spayed_neutered, 
+            personality=pet_personality,
+            profile_image=pet_profile_photo,
+            user_pet_id=request.user.id,
+        )
+        new_pet.save()
+        return JsonResponse({"success":True})
         
