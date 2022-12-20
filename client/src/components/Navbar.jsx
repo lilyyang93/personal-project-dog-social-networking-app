@@ -2,7 +2,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function NavBar() {
 
@@ -26,9 +26,9 @@ export default function NavBar() {
     return (
     <div className="NavBar">
     <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Fetch</Navbar.Brand>
+        <Navbar.Brand>Fetch</Navbar.Brand>
         <Nav className="me-auto">
-        <Nav.Link href="/homepage">Home</Nav.Link>
+        <Nav.Link as={Link} to="/homepage">Home</Nav.Link>
         <Nav.Link onClick={logoutUser}>Log Out</Nav.Link>
         </Nav>
     </Navbar>
