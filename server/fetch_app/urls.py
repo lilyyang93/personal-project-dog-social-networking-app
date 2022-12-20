@@ -7,4 +7,5 @@ urlpatterns = [
     path("homepage", views.homepage),
     path("logout", views.logout_user),
     path("editprofile", views.edit_profile),
+    path("addpetprofile", views.add_pet_profile),
 ]
