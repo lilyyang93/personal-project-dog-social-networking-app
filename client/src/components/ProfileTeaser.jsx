@@ -34,6 +34,9 @@ export default function ProfileTeaser(props) {
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn outline className="ms-1" onClick={()=>navigate("/editprofile")}>Edit Profile</MDBBtn>
                 </div>
+                <div className="d-flex justify-content-center mb-2">
+                  <MDBBtn outline className="ms-1" onClick={()=>navigate("/addpetprofile")}>Add Pet Profile</MDBBtn>
+                </div>
               </MDBCardBody>
             </MDBCard>
 
