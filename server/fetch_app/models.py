@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser 
 from .validators import age_greater_or_equal_to_18
 
+def upload_pet_image(instance, filename):
+    return 'pet_profile_photo/{filename}'.format(filename=filename)
+
 class AppUser(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     birthdate = models.DateField(max_length=8, validators=[age_greater_or_equal_to_18])
@@ -14,24 +17,15 @@ class AppUser(AbstractUser):
     def __str__(self):
         return f"user: {self.username}"
 
-# class HumanProfile(models.Model):
-#     user = models.OneToOneField(AppUser, on_delete=models.CASCADE)
-#     image = models.ImageField(default="default.jpg")
-#     bio = models.CharField(max_length=255, default="you can write a short bio here!")
-#     city = models.CharField(max_length=255, default="unknown")
-
-#     def __str__(self):
-#         return f"{self.user.username} Profile"
-
-# class PetProfile(models.Model):
-#     name = models.CharField(max_length=255)
-#     birthdate = models.DateTimeField()``````
-#     breed = models.CharField(max_length=255)
-#     gender = models.CharField(max_length=6, choices=[('male','male'),('female','female')])
-#     spayed_neutered = models.CharField(max_length=3, choices=[('yes','yes'),('no','no')])
-#     personality = models.CharField(max_length=255)
-#     location = models.CharField(max_length=255)
-#     user_id = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+class PetProfile(models.Model):
+    name = models.CharField(max_length=255)
+    birthdate = models.DateField(max_length=8)
+    breed = models.CharField(max_length=255)
+    gender = models.CharField(max_length=6, choices=[('male','male'),('female','female')])
+    spayed_neutered = models.CharField(max_length=3, choices=[('yes','yes'),('no','no')])
+    personality = models.CharField(max_length=255)
+    profile_image = models.ImageField(upload_to=upload_pet_image, default="pet_profile_photo/default.jpg")
+    user_pet = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
 # class PetPhoto(models.Model):
 #     image = models.ImageField(max_length=255, upload_to='dog_pics')
