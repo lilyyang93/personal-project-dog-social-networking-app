@@ -21,7 +21,7 @@ export default function HomePage() {
     }   
 
     return (
-        <div className="homepage">
+        <div className="HomePage">
             <NavBar />
             <br/>
             <h1>Welcome to your homepage, {myUser}</h1>
