@@ -55,7 +55,7 @@ export default function SignUpPage() {
     return (
         <div className="SignUpPage">
         <h1>Sign up!</h1>
-        <form onSubmit={createUser}>
+        <form method="post" onSubmit={createUser}>
             <label for="SignUpFirstname">first name: </label><input id="SignUpFirstname" type="text" /><br/><br/>
             <label for="SignUpLastname">last name: </label><input id="SignUpLastname" type="text" /><br/><br/>
             <label for="SignUpUsername">email: </label><input id="SignUpUsername" type="text" /><br/><br/>
