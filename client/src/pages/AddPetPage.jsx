@@ -88,7 +88,7 @@ export default function AddPetPage() {
                     <input type="file" id="PetProfilePhoto" /><br/><br/>
                 <input type="submit" />
             </form><br/><br/>
-            {saved ? <h4>changes saved!</h4>: ""}
+            {saved ? <h4>pet profile added!</h4>: ""}
             {changeError ? <h4>error, please try again</h4>: ""}
         </div>
     )
