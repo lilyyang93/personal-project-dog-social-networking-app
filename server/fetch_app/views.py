@@ -8,7 +8,6 @@ import requests as client_request
 from requests_oauthlib import OAuth1
 from dotenv import load_dotenv
 import os 
-import json
 
 load_dotenv()
 auth = OAuth1(os.environ['apikey'], os.environ['secretkey'])
@@ -71,6 +70,7 @@ def homepage(request):
     if request.method == "GET":
         my_user = request.user.username
         logged_in_user = AppUser.objects.get(username=my_user)
+        my_user_pets = PetProfile.objects.get(user_pet_id=logged_in_user.id)
         NP_API_response = client_request.get(f"http://api.thenounproject.com/icon/{logged_in_user.image}", auth=auth)
         responseJSON = NP_API_response.json()
         image_url = responseJSON['icon']['preview_url']
@@ -79,7 +79,8 @@ def homepage(request):
             "email": logged_in_user.username,
             "location": logged_in_user.city,
             "image": logged_in_user.image,
-            "image_url": image_url
+            "image_url": image_url,
+            "pet_names": my_user_pets.name,
         })
 
 @api_view(["GET", "PUT"])
