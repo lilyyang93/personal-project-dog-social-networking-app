@@ -70,25 +70,30 @@ def homepage(request):
     if request.method == "GET":
         my_user = request.user.username
         logged_in_user = AppUser.objects.get(username=my_user)
-        my_user_pets = PetProfile.objects.get(user_pet_id=logged_in_user.id)
         NP_API_response = client_request.get(f"http://api.thenounproject.com/icon/{logged_in_user.image}", auth=auth)
         responseJSON = NP_API_response.json()
         image_url = responseJSON['icon']['preview_url']
+        try:
+            my_user_pets = PetProfile.objects.get(user_pet_id=logged_in_user.id)
+            pet_names = my_user_pets.name
+        except:
+            my_user_pets = None
+            pet_names = None
         return JsonResponse({
             "firstname":logged_in_user.first_name,
             "email": logged_in_user.username,
             "location": logged_in_user.city,
             "image": logged_in_user.image,
             "image_url": image_url,
-            "pet_names": my_user_pets.name,
+            "pet_names": pet_names,
         })
 
 @api_view(["GET", "PUT"])
 @login_required
 def edit_profile(request):
     if request.method == "PUT":
-        my_user = request.user.username
-        logged_in_user = AppUser.objects.get(username=my_user)
+        my_user = request.user.id
+        logged_in_user = AppUser.objects.get(id=my_user)
         new_value = request.data['new_value']
         if request.data['attribute'] == 'last_name':
             logged_in_user.last_name = new_value
@@ -100,7 +105,11 @@ def edit_profile(request):
             return JsonResponse({'success': True})
         elif request.data['attribute'] == 'city':
             logged_in_user.city = new_value
+            logged_in_user_pets = PetProfile.objects.all().filter(user_pet_id=my_user)
             logged_in_user.save()
+            logged_in_user_pets.update(city=new_value)
+            for pet in logged_in_user_pets:
+                pet.save()
             return JsonResponse({'success': True})
         elif request.data['attribute'] == 'image':
             logged_in_user.image = new_value
@@ -109,8 +118,8 @@ def edit_profile(request):
         return JsonResponse({'success':False})
 
 @api_view(["GET", "POST"])
+@login_required
 def add_pet_profile(request):
-    pass
     if request.method == "POST":
         pet_name = request.data["pet_name"]
         pet_birthdate = request.data["pet_birthdate"]
@@ -118,7 +127,9 @@ def add_pet_profile(request):
         pet_gender = request.data["pet_gender"]
         spayed_neutered = request.data["spayed_neutered"] 
         pet_personality = request.data["pet_personality"]
+        pet_likes = request.data["pet_likes"]
         pet_profile_photo = request.data["pet_profile_photo"]
+        pet_city = request.user.city
 
         new_pet = PetProfile.objects.create(
             name=pet_name, 
@@ -127,9 +138,22 @@ def add_pet_profile(request):
             gender=pet_gender, 
             spayed_neutered=spayed_neutered, 
             personality=pet_personality,
+            likes=pet_likes,
             profile_image=pet_profile_photo,
+            city=pet_city,
             user_pet_id=request.user.id,
         )
         new_pet.save()
         return JsonResponse({"success":True})
-        
+
+@api_view(["GET"])
+@login_required       
+def find_friends(request):
+    if request.method == "GET":
+        pass
+        # logged_in_user_id = request.user.id
+        # logged_in_user_city = request.user.city
+        # # logged_in_user = AppUser.objects.get(username=my_user)
+        # print(my_user)
+        # # my_user_pets = PetProfile.objects.get(user_pet_id=logged_in_user.id)
+        return JsonResponse({"user":""})
