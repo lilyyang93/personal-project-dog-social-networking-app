@@ -42,6 +42,7 @@ export default function AddPetPage() {
         let pet_gender = document.getElementById("PetGender").value
         let spayed_neutered = document.getElementById("SpayNeuterStatus").value
         let pet_personality = document.getElementById("PetPersonality").value
+        let pet_likes = document.getElementById("PetLikes").value
         let pet_profile_photo = document.getElementById("PetProfilePhoto").value
 
         let response = await axios.post("addpetprofile", {
@@ -51,6 +52,7 @@ export default function AddPetPage() {
             'pet_gender': pet_gender,
             'spayed_neutered': spayed_neutered,
             'pet_personality': pet_personality,
+            'pet_likes': pet_likes,
             'pet_profile_photo': pet_profile_photo,
         })
 
@@ -84,6 +86,8 @@ export default function AddPetPage() {
                 </div><br/><br/>
                 <label for="PetPersonality">personality: </label>
                     <input type="text" id="PetPersonality" /><br/><br/>
+                <label for="PetLikes">my pet likes: </label>
+                    <input type="text" id="PetLikes" /><br/><br/>
                 <label for="PetProfilePhoto">pet profile photo: </label>
                     <input type="file" id="PetProfilePhoto" /><br/><br/>
                 <input type="submit" />
