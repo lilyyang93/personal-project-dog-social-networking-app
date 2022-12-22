@@ -7,6 +7,7 @@ import {
   MDBRow,
   MDBCard,
   MDBCardText,
+  MDBCardLink,
   MDBCardBody,
   MDBCardImage,
   MDBBtn,
@@ -46,29 +47,20 @@ export default function ProfileTeaser(props) {
             <MDBCard className="mb-4">
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>View Requests</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">blah</MDBCardText>
+                  <MDBCol>
+                    <MDBCardLink onClick={()=>navigate("/editprofile")}>View Requests</MDBCardLink>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>View Favorites</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">blah</MDBCardText>
+                  <MDBCol>
+                  <MDBCardLink onClick={()=>navigate("/editprofile")}>View Favorites</MDBCardLink>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Find Friends</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">blah</MDBCardText>
+                  <MDBCol>
+                  <MDBCardLink onClick={()=>navigate("/findfriends")}>Find Friends</MDBCardLink>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
