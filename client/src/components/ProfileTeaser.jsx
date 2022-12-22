@@ -1,3 +1,4 @@
+import PetProfileTeaser from './PetProfileTeaser';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import {
@@ -71,6 +72,9 @@ export default function ProfileTeaser(props) {
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
+            </MDBCard>
+            <MDBCard>
+              <PetProfileTeaser myPets={props.myPets} />
             </MDBCard>
           </MDBCol>
         </MDBRow>
