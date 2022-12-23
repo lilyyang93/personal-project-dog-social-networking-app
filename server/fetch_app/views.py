@@ -150,10 +150,11 @@ def add_pet_profile(request):
 @login_required       
 def find_friends(request):
     if request.method == "GET":
-        pass
-        # logged_in_user_id = request.user.id
-        # logged_in_user_city = request.user.city
-        # # logged_in_user = AppUser.objects.get(username=my_user)
-        # print(my_user)
-        # # my_user_pets = PetProfile.objects.get(user_pet_id=logged_in_user.id)
-        return JsonResponse({"user":""})
+        user = request.user.id
+        user_city = request.user.city
+        try:
+            area_friends = PetProfile.objects.all().filter(city=user_city).exclude(user_pet_id=user)
+            friends = list(area_friends)
+        except:
+            friends = None 
+        return JsonResponse({"friends":friends})
