@@ -156,11 +156,7 @@ def find_friends(request):
         responseJSON = dog_API_response.json()[0]
         image_url = responseJSON['url']
         print(image_url)
-        try:
-            area_friends = PetProfile.objects.all().filter(city=user_city).exclude(user_pet_id=user)
-            friends = list(area_friends)
-            return JsonResponse({"friends":friends, "dog_image":image_url})
-        except:
-            friends = None
-            return JsonResponse({"friends":friends, "dog_image":image_url})
+        area_friends = PetProfile.objects.all().filter(city=user_city).exclude(user_pet_id=user)
+        friends = list(area_friends)
+        return JsonResponse({"friends":friends, "dog_image":image_url})
         
