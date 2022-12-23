@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 export default function FindFriendsPage() {
 
     const [friends, setFriends] = useState([])
+    const [dogPhoto, setDogPhoto] = useState("")
 
     useEffect(()=>{
         getFriends()
@@ -13,8 +14,9 @@ export default function FindFriendsPage() {
     async function getFriends() {
         let response = await axios.get("findfriends")
         setFriends(response.data.friends)
-        console.log(friends)
+        setDogPhoto(response.data.dog_image)
     }  
+
     return (
         <div className="FindFriendsPage">
             <NavBar /><br/>
@@ -24,6 +26,7 @@ export default function FindFriendsPage() {
             friends.map((friend)=> {
                 <h3>{friend}</h3>
             })}
+            {friends.length == 0 ? <img src={dogPhoto}/> : <p></p>}
         </div>
     )
 }
