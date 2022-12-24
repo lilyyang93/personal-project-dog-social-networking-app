@@ -5,36 +5,52 @@ import FriendTeaser from '../components/FriendTeaser'
 
 export default function FindFriendsPage() {
 
+    const [responseData, setResponseData] = useState([])
     const [friends, setFriends] = useState([])
     const [dogPhoto, setDogPhoto] = useState("")
     const [availableFriends, setAvailableFriends] = useState(true)
-    const [friendNames, setFriendNames] = useState([])
-
 
     useEffect(()=>{
         getFriends()
     },[])
 
-    useEffect(()=>{
-        friends.map((friend)=>{
-            setFriendNames(prevArray => [...prevArray, friend.fields.name])
-        })
-        if (!friendNames) {
-            setAvailableFriends(false)
-        }
-    },[friends])
-
     async function getFriends() {
         let response = await axios.get("findfriends")
-        setFriends(response.data.friends)
+        setResponseData(response.data.friends)
         setDogPhoto(response.data.dog_image)
-    }  
+    } 
+
+    useEffect(()=>{
+        console.log("response data",responseData)
+        setFriends(responseData.map((friend)=>{
+            return {
+                id: friend.pk,
+                owner: friend.fields.user_pet,
+                name: friend.fields.name,
+                birthdate: friend.fields.birthdate,
+                breed: friend.fields.breed, 
+                gender: friend.fields.gender,
+                spayed_neutered_status: friend.fields.spayed_neutered, 
+                profile_image: friend.fields.profile_image,
+                city: friend.fields.city,
+                personality: friend.fields.personality,
+                likes: friend.fields.likes
+            }
+        }))
+    },[responseData]) 
+
+    useEffect(()=>{
+        if (!friends) {
+            setAvailableFriends(false)
+        }
+        console.log("friends",friends)
+    },[friends])
 
     return (
         <div className="FindFriendsPage">
             <NavBar /><br/>
             <h3>fetching friends in your area...</h3><br/><br/>
-            {availableFriends ? <FriendTeaser friendNames={friendNames}/> : <p>no friends found. please try again later</p>}
+            {availableFriends ? <FriendTeaser friends={friends}/> : <p>no friends found. please try again later</p>}
             {availableFriends ? <p></p> : <img src={dogPhoto}/>}
         </div>
     )
