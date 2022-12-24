@@ -1,6 +1,7 @@
 import axios from 'axios'
 import NavBar from "../components/Navbar"
 import { useEffect, useState } from 'react'
+import FriendTeaser from '../components/FriendTeaser'
 
 export default function FindFriendsPage() {
 
@@ -33,7 +34,7 @@ export default function FindFriendsPage() {
         <div className="FindFriendsPage">
             <NavBar /><br/>
             <h3>fetching friends in your area...</h3><br/><br/>
-            {availableFriends ? <p>{friendNames}</p> : <p>no friends found. please try again later</p>}
+            {availableFriends ? <FriendTeaser friendNames={friendNames}/> : <p>no friends found. please try again later</p>}
             {availableFriends ? <p></p> : <img src={dogPhoto}/>}
         </div>
     )
