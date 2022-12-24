@@ -6,27 +6,33 @@ export default function FindFriendsPage() {
 
     const [friends, setFriends] = useState([])
     const [dogPhoto, setDogPhoto] = useState("")
+    const [availableFriends, setAvailableFriends] = useState(true)
 
     useEffect(()=>{
         getFriends()
     },[])
 
+    useEffect(()=>{
+        friends.map((friend)=>{
+            console.log(friend.fields.name)
+        })
+    },[friends])
+
     async function getFriends() {
         let response = await axios.get("findfriends")
         setFriends(response.data.friends)
         setDogPhoto(response.data.dog_image)
+        if (friends.length == 0) {
+            setAvailableFriends(false)
+        } 
     }  
 
     return (
         <div className="FindFriendsPage">
             <NavBar /><br/>
             <h3>fetching friends in your area...</h3><br/><br/>
-            {friends.length == 0 ? 
-            <h5>No friends found. Please try again later.</h5> : 
-            friends.map((friend)=> {
-                <h3>{friend}</h3>
-            })}
-            {friends.length == 0 ? <img src={dogPhoto}/> : <p></p>}
+            {availableFriends ? <p></p> : <p>no friends found. please try again later.</p>}
+            {availableFriends ? <p></p> : <img src={dogPhoto}/>}
         </div>
     )
 }
