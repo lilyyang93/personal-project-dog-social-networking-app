@@ -4,10 +4,12 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view 
 from .models import *
 from .serializers import PetProfileSerializer
+from django.core.serializers import serialize
 import requests as client_request
 from requests_oauthlib import OAuth1
 from dotenv import load_dotenv
 import os 
+import json
 
 load_dotenv()
 auth = OAuth1(os.environ['apikey'], os.environ['secretkey'])
@@ -155,8 +157,8 @@ def find_friends(request):
         dog_API_response = client_request.get("https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=1")
         responseJSON = dog_API_response.json()[0]
         image_url = responseJSON['url']
-        print(image_url)
         area_friends = PetProfile.objects.all().filter(city=user_city).exclude(user_pet_id=user)
-        friends = list(area_friends)
+        friends = json.loads(serialize('json', area_friends))
+        print(friends)
         return JsonResponse({"friends":friends, "dog_image":image_url})
         
