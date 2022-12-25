@@ -6,6 +6,9 @@ import LogInPage from './pages/LogInPage';
 import EditProfilePage from './pages/EditProfilePage';
 import AddPetPage from './pages/AddPetPage';
 import FindFriendsPage from './pages/FindFriendsPage';
+import ViewFriendProfilePage from './pages/ViewFriendProfilePage';
+import ViewMyPetsPage from './pages/ViewMyPetsPage';
+import EditPetProfilePage from './pages/EditPetProfilePage';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/editprofile" element={<EditProfilePage />}></Route>
         <Route path="/addpetprofile" element={<AddPetPage />}></Route>
         <Route path="/findfriends" element={<FindFriendsPage />}></Route>
+        <Route path="/viewfriend" element={<ViewFriendProfilePage />}></Route>
+        <Route path="/viewmypets" element={<ViewMyPetsPage />}></Route>
+        <Route path="/editpetprofile:petID" element={<EditPetProfilePage />}></Route>
       </Routes>
     </div>
     </Router>
