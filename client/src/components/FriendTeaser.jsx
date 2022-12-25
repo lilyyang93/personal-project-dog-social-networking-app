@@ -10,9 +10,10 @@ export default function FriendTeaser({friends}) {
         <Card.Body>
             <Card.Title>{friend.name}</Card.Title>
             <Card.Text>
-            {friend.personality}
+            {friend.gender} / {friend.breed}<br/>
+            spayed/neutered: {friend.spayed_neutered_status}<br/>
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Button variant="primary">view profile</Button>
         </Card.Body>
         </Card>
     ))} 
