@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view 
 from .models import *
-from .serializers import PetProfileSerializer
 from django.core.serializers import serialize
 import requests as client_request
 from requests_oauthlib import OAuth1
@@ -160,4 +159,51 @@ def find_friends(request):
         area_friends = PetProfile.objects.all().filter(city=user_city).exclude(user_pet_id=user)
         friends = json.loads(serialize('json', area_friends))
         return JsonResponse({"friends":friends, "dog_image":image_url})
-        
+
+@api_view(["GET"])
+@login_required  
+def view_friend(request):
+    pass
+
+@api_view(["GET"])
+@login_required          
+def view_my_pets(request):
+    if request.method == "GET":
+        user = request.user.id
+        filtered_pets = PetProfile.objects.all().filter(user_pet_id=user)
+        my_pets = json.loads(serialize('json', filtered_pets))
+        return JsonResponse({'pets':my_pets})
+
+@api_view(["GET", "PUT"])
+@login_required   
+def edit_pet_profile(request, petID):
+    if request.method == "PUT":
+        petID = request.data['petID']
+        pet_to_update = PetProfile.objects.get(id=petID)
+        new_value = request.data['new_value']
+        if request.data['attribute'] == 'breed':
+            pet_to_update.breed = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'gender':
+            pet_to_update.gender = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'personality':
+            pet_to_update.personality = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'likes':
+            pet_to_update.likes = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'spayed_neutered':
+            pet_to_update.spayed_neutered = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        elif request.data['attribute'] == 'image':
+            pet_to_update.image = new_value
+            pet_to_update.save()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success':False})
+
