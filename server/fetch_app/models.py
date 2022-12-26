@@ -30,14 +30,15 @@ class PetProfile(models.Model):
     city = models.CharField(max_length=255, default="")
     user_pet = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
+class Message(models.Model):
+    petID = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, default="Hi!")
+    message = models.CharField(max_length=255, default="Let's be friends!")
+    sent_by = models.ForeignKey(PetProfile, on_delete=models.CASCADE, max_length=255)
+
 # class PetPhoto(models.Model):
 #     image = models.ImageField(max_length=255, upload_to='dog_pics')
 #     pet_id = models.ForeignKey(PetProfile, on_delete=models.CASCADE)#which dog does this this photo record belong to?
-
-# class Request(models.Model):
-#     received_by = models.ForeignKey(PetProfile, on_delete=models.CASCADE, max_length=255)#which dog should receive the request?
-#     request_note = models.CharField(max_length=255, default="Hi there!")#note to be sent with request
-#     sent_by = models.ForeignKey(PetProfile, on_delete=models.CASCADE, max_length=255)#which dog sent the request?
 
 # class Favorite(models.Model):
 #     favorite_pet = models.CharField(max_length=255) #the primary key of the favorite pet 
