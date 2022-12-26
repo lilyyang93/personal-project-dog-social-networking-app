@@ -37,10 +37,6 @@ export default function ViewFriendProfilePage(){
         setMyFriend(response.data)
     }
 
-    useEffect(()=>{
-        console.log(myFriend)
-    },[myFriend])
-
     return (
         <div className="ViewFriendProfilePage">
             <NavBar /><br/>
