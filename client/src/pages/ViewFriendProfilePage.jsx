@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../components/Navbar"
 import axios from "axios"
+import Button from 'react-bootstrap/Button'
 
 export default function ViewFriendProfilePage(){
     function getCookie(name) {
@@ -22,6 +23,7 @@ export default function ViewFriendProfilePage(){
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
 
+    const navigate = useNavigate()
     const [myFriend, setMyFriend] = useState([])
 
     let { petID } = useParams()
@@ -43,6 +45,8 @@ export default function ViewFriendProfilePage(){
         <div className="ViewFriendProfilePage">
             <NavBar /><br/>
             <h2>{myFriend.name}</h2>
+            <Button variant="primary" onClick={()=>navigate(`/sendmessage${petID}`)}>send message</Button>
+            {/* <Button variant="primary" onClick={()=>navigate(`/viewfriend${friend.id}`)}>add to favorite</Button> */}
             <hr/>
             <p>DOB: {myFriend.birthdate}</p>
             <p>{myFriend.gender} {myFriend.breed}</p>
