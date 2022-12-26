@@ -21,7 +21,6 @@ export default function FindFriendsPage() {
     } 
 
     useEffect(()=>{
-        console.log("response data",responseData)
         setFriends(responseData.map((friend)=>{
             return {
                 id: friend.pk,
@@ -43,7 +42,6 @@ export default function FindFriendsPage() {
         if (!friends) {
             setAvailableFriends(false)
         }
-        console.log("friends",friends)
     },[friends])
 
     return (
