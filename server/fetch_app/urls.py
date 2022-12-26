@@ -9,7 +9,7 @@ urlpatterns = [
     path("editprofile", views.edit_profile),
     path("addpetprofile", views.add_pet_profile),
     path("findfriends", views.find_friends),
-    path("viewfriend", views.view_friend),
+    path("viewfriend<int:petID>", views.view_friend),
     path("viewmypets", views.view_my_pets),
     path("editpetprofile<int:petID>", views.edit_pet_profile),
 ]
