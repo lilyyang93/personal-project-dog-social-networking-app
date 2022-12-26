@@ -21,7 +21,7 @@ function App() {
         <Route path="/editprofile" element={<EditProfilePage />}></Route>
         <Route path="/addpetprofile" element={<AddPetPage />}></Route>
         <Route path="/findfriends" element={<FindFriendsPage />}></Route>
-        <Route path="/viewfriend" element={<ViewFriendProfilePage />}></Route>
+        <Route path="/viewfriend:petID" element={<ViewFriendProfilePage />}></Route>
         <Route path="/viewmypets" element={<ViewMyPetsPage />}></Route>
         <Route path="/editpetprofile:petID" element={<EditPetProfilePage />}></Route>
       </Routes>
