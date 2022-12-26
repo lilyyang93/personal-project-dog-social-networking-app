@@ -162,8 +162,20 @@ def find_friends(request):
 
 @api_view(["GET"])
 @login_required  
-def view_friend(request):
-    pass
+def view_friend(request, petID):
+    if request.method == "GET":
+        petID = request.query_params['petID']
+        view_pet = PetProfile.objects.get(id=petID)
+        return JsonResponse({
+            "name": view_pet.name,
+            "birthdate": view_pet.birthdate,
+            "breed": view_pet.breed,
+            "gender": view_pet.gender,
+            "spayed_neutered": view_pet.spayed_neutered,
+            "personality": view_pet.personality,
+            "likes": view_pet.likes,
+            "profile_image": str(view_pet.profile_image),
+            })
 
 @api_view(["GET"])
 @login_required          
