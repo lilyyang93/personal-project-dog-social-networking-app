@@ -9,6 +9,7 @@ import FindFriendsPage from './pages/FindFriendsPage';
 import ViewFriendProfilePage from './pages/ViewFriendProfilePage';
 import ViewMyPetsPage from './pages/ViewMyPetsPage';
 import EditPetProfilePage from './pages/EditPetProfilePage';
+import SendMessagePage from './pages/SendMessagePage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/viewfriend:petID" element={<ViewFriendProfilePage />}></Route>
         <Route path="/viewmypets" element={<ViewMyPetsPage />}></Route>
         <Route path="/editpetprofile:petID" element={<EditPetProfilePage />}></Route>
+        <Route path="/sendmessage:petID" element={<SendMessagePage />}></Route>
       </Routes>
     </div>
     </Router>
