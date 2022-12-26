@@ -1,7 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 
 export default function FriendTeaser({friends}) {
+
+    const navigate = useNavigate()
+
     return (
     <div className="FriendTeaser">
     {friends.map((friend)=> (
@@ -13,7 +17,7 @@ export default function FriendTeaser({friends}) {
             {friend.gender} / {friend.breed}<br/>
             spayed/neutered: {friend.spayed_neutered_status}<br/>
             </Card.Text>
-            <Button variant="primary">view profile</Button>
+            <Button variant="primary" onClick={()=>navigate(`/viewfriend${friend.id}`)}>view profile</Button>
         </Card.Body>
         </Card>
     ))} 
