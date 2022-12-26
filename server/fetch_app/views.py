@@ -222,10 +222,22 @@ def edit_pet_profile(request, petID):
 @api_view(["GET", "POST"])
 @login_required   
 def send_message(request, petID):
+    my_user = request.user.id
     if request.method == "GET":
-        petID = request.query_params['petID']
-        message_petID = PetProfile.objects.get(id=petID)
+        pet_ID = request.query_params['petID']
+        message_petID = PetProfile.objects.get(id=pet_ID)
         return JsonResponse({
             "name": message_petID.name,
             })
-
+    elif request.method == "POST":
+        petID = request.data["petID"]
+        title = request.data["title"]
+        message = request.data["message"]
+        new_message = Message.objects.create(
+            petID = petID,
+            title = title,
+            message = message,
+            sent_by_id = my_user
+        )
+        new_message.save()
+        return JsonResponse({"success":True})
