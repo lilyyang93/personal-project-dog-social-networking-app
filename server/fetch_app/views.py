@@ -219,3 +219,13 @@ def edit_pet_profile(request, petID):
             return JsonResponse({'success': True})
         return JsonResponse({'success':False})
 
+@api_view(["GET", "POST"])
+@login_required   
+def send_message(request, petID):
+    if request.method == "GET":
+        petID = request.query_params['petID']
+        message_petID = PetProfile.objects.get(id=petID)
+        return JsonResponse({
+            "name": message_petID.name,
+            })
+
