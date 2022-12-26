@@ -12,4 +12,5 @@ urlpatterns = [
     path("viewfriend<int:petID>", views.view_friend),
     path("viewmypets", views.view_my_pets),
     path("editpetprofile<int:petID>", views.edit_pet_profile),
+    path("sendmessage<int:petID>", views.send_message),
 ]
