@@ -51,18 +51,18 @@ export default function ProfileTeaser(props) {
                   </MDBCol>
                 </MDBRow>
                 <hr />
-                <MDBRow>
+                {/* <MDBRow>
                   <MDBCol>
-                    <MDBCardLink onClick={()=>navigate("/editprofile")}>View Requests</MDBCardLink>
+                    <MDBCardLink onClick={()=>navigate("/viewmessages")}>View Messages</MDBCardLink>
                   </MDBCol>
                 </MDBRow>
-                <hr />
-                <MDBRow>
+                <hr /> */}
+                {/* <MDBRow>
                   <MDBCol>
                   <MDBCardLink onClick={()=>navigate("/editprofile")}>View Favorites</MDBCardLink>
                   </MDBCol>
                 </MDBRow>
-                <hr />
+                <hr /> */}
                 <MDBRow>
                   <MDBCol>
                   <MDBCardLink onClick={()=>navigate("/findfriends")}>Find Friends</MDBCardLink>
