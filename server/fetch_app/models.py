@@ -25,7 +25,7 @@ class PetProfile(models.Model):
     spayed_neutered = models.CharField(max_length=3, choices=[('yes','yes'),('no','no')])
     personality = models.CharField(max_length=255)
     likes = models.CharField(max_length=255, default="")
-    profile_image = models.ImageField(upload_to=upload_pet_image, default="pet_profile_photo/default.jpg")
+    profile_image = models.ImageField(upload_to="images/", default="pet_profile_photo/default.jpg")
     city = models.CharField(max_length=255, default="")
     user_pet = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
