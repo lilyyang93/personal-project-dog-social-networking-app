@@ -53,7 +53,7 @@ export default function ViewFriendProfilePage(){
             <br/><br/><br/>
             <h4>{myFriend.name} likes: </h4>
             <p>{myFriend.likes}</p>
-            <p>{myFriend.profile_image}</p>
+            {/* <p>{myFriend.profile_image}</p> */}
         </div>
     )
 }
