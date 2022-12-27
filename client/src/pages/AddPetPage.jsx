@@ -25,7 +25,6 @@ export default function AddPetPage() {
     const [changeError, setChangeError] = useState(false)
     const [gender, setGender] = useState("")
     const [spayNeuterStatus, setSpayNeuterStatus] = useState("")
-    const [image, setImage] = useState("")
 
     function onChangeValueGender(event) {
         setGender(event.target.value)
