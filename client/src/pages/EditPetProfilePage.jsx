@@ -26,7 +26,6 @@ export default function EditPetProfilePage() {
 
     const [saved, setSaved] = useState(false)
     const [changeError, setChangeError] = useState(false)
-    const [spayNeuterStatus, setSpayNeuterStatus] = useState("")
 
     async function editPetProfile(attribute) {
         let new_value = document.getElementById(attribute).value
@@ -42,10 +41,6 @@ export default function EditPetProfilePage() {
         }
     }
 
-    function onChangeValueSpayNeuter(event) {
-        setSpayNeuterStatus(event.target.value)
-    }
-
     return (
         <div className="EditPetProfilePage">
             <NavBar /><br/>
@@ -56,33 +51,37 @@ export default function EditPetProfilePage() {
                 <button onClick={()=>editPetProfile("breed")}>edit</button>
             </span>
             <br/><br/>
+
             <span>
                 <input id="gender" type="text" placeholder="gender"/>
                 <button onClick={()=>editPetProfile("gender")}>edit</button>
             </span>
             <br/><br/>
+
             <span>
                 <input id="personality" type="text" placeholder="personality"/>
                 <button onClick={()=>editPetProfile("personality")}>edit</button>
             </span>
             <br/><br/>
+
             <span>
                 <input id="likes" type="text" placeholder="likes"/>
                 <button onClick={()=>editPetProfile("likes")}>edit</button>
             </span>
             <br/><br/>
-            <div onChange={onChangeValueSpayNeuter}>
-                <label for="spayed_neutered">spayed/neutered: </label>
-                    <input type="radio" id="spayed_neutered" value="yes" name="spayed_neutered" checked={spayNeuterStatus === "yes"} />yes
-                    <input type="radio" id="spayed_neutered" value="no" name="spayed_neutered" checked={spayNeuterStatus === "no"} />no
-                    <button onClick={()=>editPetProfile("spayed_neutered")}>edit</button>
-                </div><br/><br/>
+
             <span>
-            <label for="profile_image">pet profile photo: </label>
-                <input type="file" id="profile_image" /><br/><br/>
-                <button onClick={()=>editPetProfile("profile_image")}>edit</button>
+                <input id="spayed_neutered" type="text" placeholder="spayed/neutered"/>
+                <button onClick={()=>editPetProfile("spayed_neutered")}>edit</button>
             </span>
             <br/><br/>
+
+            <span>
+            <label for="profile_image">pet profile photo: </label><br/>
+                <input type="file" id="profile_image" /><br/><br/><button onClick={()=>editPetProfile("profile_image")}>edit</button>
+            </span>
+            <br/><br/>
+
             {saved ? <h4>changes saved!</h4> : ""}
             {changeError ? <h4>error, please try again</h4>: ""}
         </div>
