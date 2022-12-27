@@ -2,7 +2,7 @@
 
 This app is for dogs and their humans to make new friends! 
 
-Moved to a new city and need to make new friends? Meet other people in your area with your furry best friend by your side! Create a profile about your dog and browse other dog profiles.
+Moved to a new city and need to make new friends? Meet other people in your area with your furry best friend by your side!
 
 ## Functionalities:
 * Create/Edit user profile
