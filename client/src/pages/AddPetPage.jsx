@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../components/Navbar';
 
 export default function AddPetPage() {
@@ -23,16 +23,15 @@ export default function AddPetPage() {
 
     const [saved, setSaved] = useState(false)
     const [changeError, setChangeError] = useState(false)
-    const [gender, setGender] = useState("")
-    const [spayNeuterStatus, setSpayNeuterStatus] = useState("")
+    const [profileImage, setProfileImage] = useState("")
 
-    function onChangeValueGender(event) {
-        setGender(event.target.value)
+    function handleFile(event) {
+        setProfileImage(pet_profile_photo)
     }
 
-    function onChangeValueSpayNeuter(event) {
-        setSpayNeuterStatus(event.target.value)
-    }
+    useEffect(()=>{
+        console.log(profileImage)
+    },[profileImage])
 
     async function createPetProfile(event) {
         event.preventDefault()
@@ -69,27 +68,29 @@ export default function AddPetPage() {
             <h2>Add a new pet!</h2>
             <form method="post" onSubmit={createPetProfile}>
                 <label for="PetName">pet name: </label>
-                    <input type="text" id="PetName" /><br/><br/>
+                <input type="text" id="PetName" /><br/><br/>
+
                 <label for="PetBirthdate">pet birthdate: </label>
-                    <input type="text" id="PetBirthdate" placeholder="YYYY-MM-DD" /><br/><br/>
+                <input type="text" id="PetBirthdate" placeholder="YYYY-MM-DD" /><br/><br/>
+
                 <label for="Breed">breed: </label>
-                    <input type="text" id="Breed" /><br/><br/>
-                <div onChange={onChangeValueGender}>
+                <input type="text" id="Breed" /><br/><br/>
+
                 <label for="PetGender">gender: </label>
-                    <input type="radio" id="PetGender" value="male" name="gender" checked={gender === 'male'} />male
-                    <input type="radio" id="PetGender" value="female" name="gender" checked={gender === 'female'} />female</div>
-                <br/><br/>
-                <div onChange={onChangeValueSpayNeuter}>
+                <input type="text" id="PetGender" /><br/><br/>
+
                 <label for="SpayNeuterStatus">spayed/neutered: </label>
-                    <input type="radio" id="SpayNeuterStatus" value="yes" name="spayneuter" checked={spayNeuterStatus === "yes"} />yes
-                    <input type="radio" id="SpayNeuterStatus" value="no" name="spayneuter" checked={spayNeuterStatus === "no"} />no
-                </div><br/><br/>
+                <input type="text" id="SpayNeuterStatus" /><br/><br/>
+
                 <label for="PetPersonality">personality: </label>
-                    <input type="text" id="PetPersonality" /><br/><br/>
+                <input type="text" id="PetPersonality" /><br/><br/>
+
                 <label for="PetLikes">my pet likes: </label>
-                    <input type="text" id="PetLikes" /><br/><br/>
+                <input type="text" id="PetLikes" /><br/><br/>
+
                 <label for="PetProfilePhoto">pet profile photo: </label>
-                    <input type="file" id="PetProfilePhoto" /><br/><br/>
+                <input type="file" id="PetProfilePhoto" onChange={handleFile}/><br/><br/>
+                
                 <input type="submit" />
             </form><br/><br/>
             {saved ? <h4>pet profile added!</h4>: ""}
