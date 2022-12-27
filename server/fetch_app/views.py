@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import api_view 
+from rest_framework.decorators import api_view
 from .models import *
 from django.core.serializers import serialize
 import requests as client_request
@@ -18,6 +18,30 @@ def index(request):
     if request.method == "GET":
         homepage = open("static/index.html").read()
         return HttpResponse(homepage)
+    elif request.method == "POST":
+        email = request.data["email"]
+        password = request.data["password"]
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_active:
+                try: 
+                    login(request, user)
+                    return JsonResponse({"success":True})
+                except Exception as e:
+                    return JsonResponse({"success": False, "reason":"login failed"})
+            else:
+                return JsonResponse({"success": False, "reason": "account disabled"})
+        else:
+            return JsonResponse({"success": False, "reason": "account does not exist"})
+    return JsonResponse({"success":True})
+
+@api_view(["GET", "POST"])
+def login_user(request):
+    if request.method == "GET":
+        dog_API_response = client_request.get("https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=1")
+        responseJSON = dog_API_response.json()[0]
+        image_url = responseJSON['url']
+        return JsonResponse({"dog_image":image_url})
     elif request.method == "POST":
         email = request.data["email"]
         password = request.data["password"]
@@ -182,8 +206,12 @@ def view_friend(request, petID):
 def view_my_pets(request):
     if request.method == "GET":
         user = request.user.id
-        filtered_pets = PetProfile.objects.all().filter(user_pet_id=user)
-        my_pets = json.loads(serialize('json', filtered_pets))
+        try:
+            filtered_pets = PetProfile.objects.all().filter(user_pet_id=user)
+            my_pets = json.loads(serialize('json', filtered_pets))
+        except:
+            filtered_pets = None
+            my_pets = None
         return JsonResponse({'pets':my_pets})
 
 @api_view(["GET", "PUT"])
@@ -241,3 +269,17 @@ def send_message(request, petID):
         )
         new_message.save()
         return JsonResponse({"success":True})
+
+@api_view(["GET"])
+@login_required  
+def view_messages(request, petID):
+    if request.method == "GET":
+        petID = request.query_params['petID']
+        try:
+            filtered_messages = Message.objects.all().filter(petID=petID)
+            my_messages = json.loads(serialize('json', filtered_messages))
+            print(my_messages)
+        except:
+            filtered_messages = None
+            my_messages = None
+        return JsonResponse({'messages':my_messages})
