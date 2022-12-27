@@ -8,7 +8,7 @@ export default function FindFriendsPage() {
     const [responseData, setResponseData] = useState([])
     const [friends, setFriends] = useState([])
     const [dogPhoto, setDogPhoto] = useState("")
-    const [availableFriends, setAvailableFriends] = useState(true)
+    const [availableFriends, setAvailableFriends] = useState(false)
 
     useEffect(()=>{
         getFriends()
@@ -21,21 +21,24 @@ export default function FindFriendsPage() {
     } 
 
     useEffect(()=>{
-        setFriends(responseData.map((friend)=>{
-            return {
-                id: friend.pk,
-                owner: friend.fields.user_pet,
-                name: friend.fields.name,
-                birthdate: friend.fields.birthdate,
-                breed: friend.fields.breed, 
-                gender: friend.fields.gender,
-                spayed_neutered_status: friend.fields.spayed_neutered, 
-                profile_image: friend.fields.profile_image,
-                city: friend.fields.city,
-                personality: friend.fields.personality,
-                likes: friend.fields.likes
-            }
-        }))
+        if (responseData.length > 0) {
+            setAvailableFriends(true)
+            setFriends(responseData.map((friend)=>{
+                return {
+                    id: friend.pk,
+                    owner: friend.fields.user_pet,
+                    name: friend.fields.name,
+                    birthdate: friend.fields.birthdate,
+                    breed: friend.fields.breed, 
+                    gender: friend.fields.gender,
+                    spayed_neutered_status: friend.fields.spayed_neutered, 
+                    profile_image: friend.fields.profile_image,
+                    city: friend.fields.city,
+                    personality: friend.fields.personality,
+                    likes: friend.fields.likes
+                }
+            }))
+        }
     },[responseData]) 
 
     useEffect(()=>{
