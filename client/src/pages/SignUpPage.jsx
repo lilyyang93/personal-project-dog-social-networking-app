@@ -1,6 +1,14 @@
 import axios from 'axios'
 import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import {
+    MDBBtn,
+    MDBContainer,
+    MDBCard,
+    MDBCardBody,
+    MDBInput,
+  }
+  from 'mdb-react-ui-kit';
 
 export default function SignUpPage() {
     function getCookie(name) {
@@ -54,16 +62,20 @@ export default function SignUpPage() {
 
     return (
         <div className="SignUpPage">
-        <h1>Sign up!</h1>
-        <form method="post" onSubmit={createUser}>
-            <label for="SignUpFirstname">first name: </label><input id="SignUpFirstname" type="text" /><br/><br/>
-            <label for="SignUpLastname">last name: </label><input id="SignUpLastname" type="text" /><br/><br/>
-            <label for="SignUpUsername">email: </label><input id="SignUpUsername" type="text" /><br/><br/>
-            <label for="SignUpPassword">password: </label><input id="SignUpPassword" type="password" /><br/><br/>
-            <label for="SignUpBirthdate">date of birth: </label><input id="SignUpBirthdate" type="text" placeholder="YYYY-MM-DD" /><br/><br/>
-            <label for="SignUpCity">city: </label><input id="SignUpCity" type="text" /><br/><br/>
-            <input type="submit"></input>
-        </form>
+        <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' style={{color: '#4835d4'}}>
+            <div className='mask gradient-custom-3'></div>
+            <MDBCard className='m-5' style={{maxWidth: '600px'}}>
+                <MDBCardBody className='px-5'>
+                <MDBInput wrapperClass='mb-4' label='first name' size='lg' id='SignUpFirstname' type='text'/>
+                <MDBInput wrapperClass='mb-4' label='last name' size='lg' id='SignUpLastname' type='text'/>
+                <MDBInput wrapperClass='mb-4' label='email' size='lg' id='SignUpUsername' type='email'/>
+                <MDBInput wrapperClass='mb-4' label='password' size='lg' id='SignUpPassword' type='password'/>
+                <MDBInput wrapperClass='mb-4' label='birthdate (YYYY-MM-DD)' size='lg' id='SignUpBirthdate' type='text'/>
+                <MDBInput wrapperClass='mb-4' label='city' size='lg' id='SignUpCity' type='text'/>
+                <MDBBtn onClick={createUser} className='mb-4 w-100 gradient-custom-4' size='lg'>sign up!</MDBBtn>
+                </MDBCardBody>
+            </MDBCard>
+        </MDBContainer>
         </div>
     )
 }
