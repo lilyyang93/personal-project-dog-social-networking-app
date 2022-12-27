@@ -49,7 +49,7 @@ export default function EditPetProfilePage() {
     return (
         <div className="EditPetProfilePage">
             <NavBar /><br/>
-            <h1>Edit your pet's profile / id: {petID}</h1>
+            <h1>Edit your pet's profile</h1>
             <hr/>
             <span>
                 <input id="breed" type="text" placeholder="breed"/>
