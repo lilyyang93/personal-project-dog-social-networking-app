@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .validators import age_greater_or_equal_to_18
 
 def upload_pet_image(instance, filename):
-    # return 'pet_profile_photo/{filename}'.format(filename=filename)
-    return '/'.join(['pet_profile_photos/{filename}',]).format(filename=filename)
+    return 'images/{filename}'.format(filename=filename)
 
 class AppUser(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
